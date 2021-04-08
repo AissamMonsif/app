@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+	crossorigin="anonymous">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<title>Type Swift Directory</title>
+</head>
+
+<body>
+
+	<div class="container">
+
+		<h3>Type Swift Directory</h3>
+		<hr>
+		<nav class="navbar navbar-expand-sm bg-secondary navbar-dark">
+			<a class="navbar-brand">Types</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#collapsibleNavbar">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="collapsibleNavbar">
+				<ul class="navbar-nav">
+					<li class="nav-item"><a class="nav-link" href="/swifts">Swifts</a></li>
+					<li class="nav-item"><a class="nav-link" href="/types">Types</a></li>
+					<li class="nav-item"><a class="nav-link" href="/champs">Champs</a></li>
+					<li class="nav-item"><a class="nav-link" href="/details">Details</a></li>
+				</ul>
+			</div>
+		</nav>
+		<p>Tapez dans la barre de recherche : :</p>
+		<input class="form-control" id="myInput" type="text"
+			placeholder="Recherche.."> <br>
+		<table class="table table-bordered table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th>id Type Swift</th>
+					<th>libelle</th>
+					<th>categorie</th>
+					<th>designation</th>
+					<th>swifts</th>
+				</tr>
+			</thead>
+
+			<tbody id="myTable">
+				<tr th:each="tempTypeSwift :${typeSwifts}">
+
+					<td th:text="${tempTypeSwift.idTypeSwift}" />
+					<td th:text="${tempTypeSwift.libelle}" />
+					<td th:text="${tempTypeSwift.categorie}" />
+					<td th:text="${tempTypeSwift.designation}" />
+							<td><a
+						th:href="@{/types/showSwiftsByTypes/{idTypeSwift}(typeSwiftId=${tempTypeSwift.idTypeSwift})}"
+						class="btn btn-info btn-sm"> Edit Similar Swifts </a></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+</body>
+</html>
+
+
+
