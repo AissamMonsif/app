@@ -7,11 +7,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "type_champ")
 public class TypeChamp {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_type_champ")
 	private int idTypeChamp;
 
@@ -60,6 +62,5 @@ public class TypeChamp {
 	public void setTypeSwift(TypeSwift typeSwift) {
 		this.typeSwift = typeSwift;
 	}
-	
-	
+
 }

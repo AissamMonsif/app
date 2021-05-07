@@ -12,21 +12,28 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	crossorigin="anonymous">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<style>
+.fakeimg {
+	height: 200px;
+	background: #aaa;
+}
+</style>
 <title>Swift Directory</title>
 </head>
 
 <body>
 
 	<div class="container">
-
 		<h3>Swift Directory</h3>
 		<hr>
-
-		<nav class="navbar navbar-expand-sm bg-secondary navbar-dark">
-			<a class="navbar-brand">Swifts</a>
+		<nav class="navbar navbar-expand-sm bg-light navbar-primary">
+			<a class="navbar-brand navbar-dark" href="/">HOME</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#collapsibleNavbar">
 				<span class="navbar-toggler-icon"></span>
@@ -39,12 +46,13 @@
 					<li class="nav-item"><a class="nav-link" href="/details">Details</a></li>
 				</ul>
 			</div>
+			<a href="@{/logout}" class="btn btn-outline-danger">logout</a>
 		</nav>
-		<p>Tapez dans la barre de recherche : :</p>
+		<p>Tapez dans la barre de recherche :</p>
 		<input class="form-control" id="myInput" type="text"
 			placeholder="Recherche.."> <br>
 		<table class="table table-bordered table-striped">
-			<thead class="thead-dark">
+			<thead class="thead-info">
 				<tr>
 
 					<th>Id swift</th>
@@ -67,22 +75,37 @@
 					<td th:text="${tempSwift.messageSwift}" />
 					<td><a
 						th:href="@{/swifts/showDetails/{idSwift}(swiftId=${tempSwift.idSwift})}"
-						class="btn btn-info btn-sm"> Edit Details </a></td>
+						class="btn btn-info btn-sm"> Editer les details du swift </a></td>
 				</tr>
 			</tbody>
 		</table>
 
 	</div>
-<script>
-$(document).ready(function(){
-  $("#myInput").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-  });
-});
-</script>
+	<script>
+		$(document)
+				.ready(
+						function() {
+							$("#myInput")
+									.on(
+											"keyup",
+											function() {
+												var value = $(this).val()
+														.toLowerCase();
+												$("#myTable tr")
+														.filter(
+																function() {
+																	$(this)
+																			.toggle(
+																					$(
+																							this)
+																							.text()
+																							.toLowerCase()
+																							.indexOf(
+																									value) > -1)
+																});
+											});
+						});
+	</script>
 </body>
 </html>
 

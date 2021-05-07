@@ -2,37 +2,34 @@ package com.example.demo.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.demo.DAO.SwiftDetailsRepository;
-import com.example.demo.DAO.SwiftRepository;
-import com.example.demo.DAO.TypeChampRepository;
-import com.example.demo.DAO.TypeSwiftRepository;
 import com.example.demo.entity.Swift;
 import com.example.demo.entity.SwiftDetails;
 import com.example.demo.entity.TypeChamp;
 import com.example.demo.entity.TypeSwift;
 import com.example.demo.services.SwiftDetailsService;
 import com.example.demo.services.SwiftService;
+import com.example.demo.services.TypeChampService;
 import com.example.demo.services.TypeSwiftService;
 
 @Controller
-@RequestMapping("/")
 public class SwiftController {
 
 	@Autowired
-	TypeSwiftRepository typeSwiftRepository;
-	@Autowired
-	TypeChampRepository typeChampRepository;
-	@Autowired
-	SwiftRepository swiftRepository;
-	@Autowired
-	SwiftDetailsRepository swiftDetailsRepository;
+	TypeChampService typeChampService;
 	@Autowired
 	SwiftDetailsService swiftDetailsService;
 	@Autowired
@@ -48,10 +45,16 @@ public class SwiftController {
 		return "home";
 	}
 
+	@GetMapping("/login")
+	public String login(Model theModel) {
+
+		return "login";
+	}
+
 	@GetMapping("/types")
 	public String listTypeSwifts(Model theModel) {
 
-		List<TypeSwift> theTypeSwifts = typeSwiftRepository.findAll();
+		List<TypeSwift> theTypeSwifts = typeSwiftService.findAllTypes();
 		theModel.addAttribute("typeSwifts", theTypeSwifts);
 
 		return "list-typeSwift";
@@ -60,7 +63,7 @@ public class SwiftController {
 	@GetMapping("/champs")
 	public String listTypeChamps(Model theModel) {
 
-		List<TypeChamp> theTypeChamps = typeChampRepository.findAll();
+		List<TypeChamp> theTypeChamps = typeChampService.findAllTypesChamps();
 		theModel.addAttribute("typeChamps", theTypeChamps);
 
 		return "list-typeChamp";
@@ -69,7 +72,7 @@ public class SwiftController {
 	@GetMapping("/swifts")
 	public String listSwifts(Model theModel) {
 
-		List<Swift> theSwifts = swiftRepository.findAll();
+		List<Swift> theSwifts = swiftService.findAllSwifts();
 		theModel.addAttribute("listSwifts", theSwifts);
 
 		return "list-swifts";
@@ -78,7 +81,7 @@ public class SwiftController {
 	@GetMapping("/details")
 	public String listSwiftDetails(Model theModel) {
 
-		List<SwiftDetails> theSwiftDetails = swiftDetailsRepository.findAll();
+		List<SwiftDetails> theSwiftDetails = swiftDetailsService.findAllSwiftsDetails();
 		theModel.addAttribute("listSwiftDetails", theSwiftDetails);
 
 		return "list-swiftDetails";
@@ -86,10 +89,10 @@ public class SwiftController {
 
 	@GetMapping("/swifts/showDetails/{id}")
 	public String detailsSwift(@RequestParam("swiftId") int theId, Model theModel) {
-		
+
 		List<SwiftDetails> theDetails = swiftDetailsService.findByIdSwift(theId);
 		theModel.addAttribute("detailsSwift", theDetails);
-		
+
 		return "detail-swift";
 	}
 
@@ -103,12 +106,21 @@ public class SwiftController {
 	}
 
 	@GetMapping("/types/showSwiftsByTypes/{id}")
-	public String swiftsByTypes(@RequestParam("typeSwiftId")int theId,Model theModel) {
+	public String swiftsByTypes(@RequestParam("typeSwiftId") int theId, Model theModel) {
 
 		List<Swift> swifts = typeSwiftService.getByTypeSwift(theId);
 		theModel.addAttribute("swiftsByType", swifts);
 
 		return "swifts-by-types";
+	}
+
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null) {
+			new SecurityContextLogoutHandler().logout(request, response, auth);
+		}
+		return "redirect:/login?logout";
 	}
 
 }

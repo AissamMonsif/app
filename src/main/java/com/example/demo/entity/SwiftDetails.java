@@ -7,11 +7,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "swift_details")
 public class SwiftDetails {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_swift_details")
 	private int idSwiftDetails;
 
@@ -19,8 +22,7 @@ public class SwiftDetails {
 	@JoinColumn(name = "id_swift")
 	private Swift swift;
 
-
-	@Column(name = "value",columnDefinition="text")
+	@Column(name = "value", columnDefinition = "text")
 	private String value;
 
 	@ManyToOne
@@ -62,5 +64,5 @@ public class SwiftDetails {
 	public void setTypeChamp(TypeChamp typeChamp) {
 		this.typeChamp = typeChamp;
 	}
-	
+
 }

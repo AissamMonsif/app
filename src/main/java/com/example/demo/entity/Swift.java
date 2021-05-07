@@ -12,13 +12,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
-
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "swift")
 public class Swift {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_swift")
 	private int idSwift;
 
@@ -35,10 +36,8 @@ public class Swift {
 	@Column(name = "date_insertion")
 	private Date dateInsertion;
 
-	@OneToMany(mappedBy = "swift", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "swift", cascade = CascadeType.MERGE)
 	private List<SwiftDetails> details;
-	
-	String block4 = "";
 
 	public Swift() {
 		super();
@@ -98,5 +97,4 @@ public class Swift {
 				+ dateInsertion + "]";
 	}
 
-	
 }

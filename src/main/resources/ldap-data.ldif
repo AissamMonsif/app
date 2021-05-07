@@ -1,0 +1,36 @@
+dn: dc=springframework,dc=org
+objectclass: top
+objectclass: domain
+objectclass: extensibleObject
+dc: springframework
+
+dn: ou=groups,dc=springframework,dc=org
+objectclass: top
+objectclass: organizationalUnit
+ou: groups
+
+dn: ou=people,dc=springframework,dc=org
+objectclass: top
+objectclass: organizationalUnit
+ou: people
+
+
+dn: uid=aissam,ou=people,dc=springframework,dc=org
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: aissam monsif
+sn: monsif
+uid: aissam
+userPassword: $2y$12$jHkcjgiRSXbVEwDDbWhIVeTbjNGk1NUNKlBGqZu4.LS2DVjVPyHXm
+
+dn: uid=med,ou=people,dc=springframework,dc=org
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: mohamed ait ouazziz
+sn: mohamed
+uid: med
+userPassword: $2y$12$iVAhNhxVjZq2QFN4oj.p8OR1Vp90ITzlVpYQAGJA79khFAN85v/UK

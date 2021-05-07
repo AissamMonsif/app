@@ -13,20 +13,22 @@
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	crossorigin="anonymous">
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <title>Swift Directory</title>
 </head>
 
 <body>
 
 	<div class="container">
-
 		<h3>Type Champ Directory</h3>
 		<hr>
-		<nav class="navbar navbar-expand-sm bg-secondary navbar-dark">
-			<a class="navbar-brand">Champs</a>
+		<nav class="navbar navbar-expand-sm bg-light navbar-primary">
+			<a class="navbar-brand" href="/">HOME</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#collapsibleNavbar">
 				<span class="navbar-toggler-icon"></span>
@@ -39,12 +41,13 @@
 					<li class="nav-item"><a class="nav-link" href="/details">Details</a></li>
 				</ul>
 			</div>
+			<a href="@{/logout}" class="btn btn-outline-danger">logout</a>
 		</nav>
-		<p>Tapez dans la barre de recherche : :</p>
+		<p>Tapez dans la barre de recherche :</p>
 		<input class="form-control" id="myInput" type="text"
 			placeholder="Recherche.."> <br>
 		<table class="table table-bordered table-striped">
-			<thead class="thead-dark">
+			<thead class="thead-info">
 				<tr>
 					<th>id type champ</th>
 					<th>description</th>
@@ -66,16 +69,31 @@
 		</table>
 
 	</div>
-<script>
-$(document).ready(function(){
-  $("#myInput").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-  });
-});
-</script>
+	<script>
+		$(document)
+				.ready(
+						function() {
+							$("#myInput")
+									.on(
+											"keyup",
+											function() {
+												var value = $(this).val()
+														.toLowerCase();
+												$("#myTable tr")
+														.filter(
+																function() {
+																	$(this)
+																			.toggle(
+																					$(
+																							this)
+																							.text()
+																							.toLowerCase()
+																							.indexOf(
+																									value) > -1)
+																});
+											});
+						});
+	</script>
 </body>
 </html>
 

@@ -24,15 +24,12 @@
 
 
 	<div class="container">
-
 		<h3>Swift correspondant</h3>
 		<hr>
-
-		<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-			<a class="navbar-brand">Swift</a>
+		<nav class="navbar navbar-expand-sm bg-light navbar-primary">
+			<a class="navbar-brand " href="/">HOME</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#collapsibleNavbar">
-				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="collapsibleNavbar">
 				<ul class="navbar-nav">
@@ -42,9 +39,10 @@
 					<li class="nav-item"><a class="nav-link" href="/details">Details</a></li>
 				</ul>
 			</div>
+			<a href="@{/logout}" class="btn btn-outline-danger">logout</a>
 		</nav>
-		<table class="table table-striped" th:object="${swift}">
-			<thead>
+		<table class="table table-bordered table-striped" th:object="${swift}">
+			<thead class="thead-info">
 				<tr>
 					<th>Id swift</th>
 					<th>Sens</th>
