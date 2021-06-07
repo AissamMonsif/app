@@ -15,5 +15,10 @@ public interface SwiftDetailsService {
 	public void deleteSwiftDetails(SwiftDetails swiftDetails);
 
 	public List<SwiftDetails> findByIdSwift(int theId);
+	
+	public List<SwiftDetails> findByLibelleTypeSwift(String libelle);
+	
+	public List<SwiftDetails> getDetailsFromTypeChampLibelle(String libelle);
+	 
 
 }

@@ -16,5 +16,8 @@ public interface SwiftService {
 	
 	public Swift getSwiftFromDetails(int theId);
 	
+	public List<Swift> getSwiftsBySens(String sens);
+	
+	
 	
 }

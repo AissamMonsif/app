@@ -6,8 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -22,7 +22,8 @@ public class SwiftDetails {
 	@JoinColumn(name = "id_swift")
 	private Swift swift;
 
-	@Column(name = "value", columnDefinition = "text")
+	@Column(name = "value")//, columnDefinition = "text")
+	@Lob
 	private String value;
 
 	@ManyToOne

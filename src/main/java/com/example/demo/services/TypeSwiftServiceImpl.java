@@ -5,6 +5,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.DAO.SwiftRepository;
@@ -19,12 +23,6 @@ public class TypeSwiftServiceImpl implements TypeSwiftService {
 	private TypeSwiftRepository typeSwiftRepository;
 	@Autowired
 	private SwiftRepository swiftRepository;
-
-	@Override
-	public List<TypeSwift> findAllTypes() {
-
-		return typeSwiftRepository.findAll();
-	}
 
 	@Override
 	public TypeSwift findTypeById(int theId) {
@@ -58,12 +56,43 @@ public class TypeSwiftServiceImpl implements TypeSwiftService {
 		List<Swift> theSwifts = new ArrayList<Swift>();
 
 		for (Swift swift : swiftRepository.findAll()) {
-	{
-				if (swift.getTypeSwift().getIdTypeSwift()==theId) 
+			{
+				if (swift.getTypeSwift().getIdTypeSwift() == theId)
 					theSwifts.add(swift);
-				}
-			
+			}
+
 		}
 		return theSwifts;
 	}
+
+	@Override
+	public List<TypeSwift> findAllTypes() {
+		// TODO Auto-generated method stub
+		return typeSwiftRepository.findAll();
+	}
+
+	@Override
+	public List<Swift> getByLibelleSwift(String libelle) {
+		// TODO Auto-generated method stub
+		List<Swift> theSwifts = new ArrayList<Swift>();
+		for(Swift swift:swiftRepository.findAll()) {
+			if(swift.getTypeSwift().getLibelle().equals(libelle)) {
+				theSwifts.add(swift);
+			}
+		}
+		return theSwifts;
+	}
+	
+	@Override
+	public List<Swift> getByCategorieSwift(String categorie) {
+		// TODO Auto-generated method stub
+		List<Swift> theSwifts = new ArrayList<Swift>();
+		for(Swift swift:swiftRepository.findAll()) {
+			if(swift.getTypeSwift().getCategorie().equals(categorie)) {
+				theSwifts.add(swift);
+			}
+		}
+		return theSwifts;
+	}
+
 }

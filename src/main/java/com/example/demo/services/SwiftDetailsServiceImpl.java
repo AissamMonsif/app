@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.DAO.SwiftDetailsRepository;
 import com.example.demo.DAO.SwiftRepository;
+import com.example.demo.DAO.TypeChampRepository;
 import com.example.demo.entity.SwiftDetails;
+import com.example.demo.entity.TypeChamp;
 
 @Service
 public class SwiftDetailsServiceImpl implements SwiftDetailsService {
@@ -18,6 +20,8 @@ public class SwiftDetailsServiceImpl implements SwiftDetailsService {
 	SwiftDetailsRepository swiftDetailsRespository;
 	@Autowired
 	SwiftRepository swiftRepository;
+	@Autowired
+	TypeChampRepository typeChampRepository;
 
 	@Override
 	public List<SwiftDetails> findAllSwiftsDetails() {
@@ -60,6 +64,30 @@ public class SwiftDetailsServiceImpl implements SwiftDetailsService {
 			}
 		}
 		return theDetails;
+	}
+
+	@Override
+	public List<SwiftDetails> findByLibelleTypeSwift(String libelle) {
+		// TODO Auto-generated method stub
+		List<SwiftDetails> details = new ArrayList<SwiftDetails>();
+		for(SwiftDetails detail:swiftDetailsRespository.findAll()) {
+			if(detail.getSwift().getTypeSwift().getLibelle().equals(libelle)) {
+				details.add(detail);
+			}
+		}
+		return details;
+	}
+
+	@Override
+	public List<SwiftDetails> getDetailsFromTypeChampLibelle(String libelle) {
+		// TODO Auto-generated method stub
+		List<SwiftDetails> details = new ArrayList<SwiftDetails>();
+		for( SwiftDetails detail:swiftDetailsRespository.findAll()) {
+			if(detail.getTypeChamp().getLibelle().equals(libelle)) {
+				details.add(detail);
+			}
+		}
+		return details;
 	}
 
 

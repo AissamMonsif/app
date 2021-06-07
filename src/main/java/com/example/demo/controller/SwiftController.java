@@ -12,9 +12,11 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.entity.Swift;
 import com.example.demo.entity.SwiftDetails;
@@ -45,11 +47,11 @@ public class SwiftController {
 		return "home";
 	}
 
-	@GetMapping("/login")
-	public String login(Model theModel) {
-
-		return "login";
-	}
+//	@GetMapping("/login")
+//	public String login(Model theModel) {
+//
+//		return "login";
+//	}
 
 	@GetMapping("/types")
 	public String listTypeSwifts(Model theModel) {
@@ -77,7 +79,7 @@ public class SwiftController {
 
 		return "list-swifts";
 	}
-
+	
 	@GetMapping("/details")
 	public String listSwiftDetails(Model theModel) {
 
@@ -114,6 +116,28 @@ public class SwiftController {
 		return "swifts-by-types";
 	}
 
+	@GetMapping("/swifts/showSwiftsBySens/{sens}")
+	public String swiftsBySens(@RequestParam("sensSwift") String sens, Model theModel) {
+
+		List<Swift> swifts = swiftService.getSwiftsBySens(sens);
+		theModel.addAttribute("swiftsBySens", swifts);
+
+		return "swifts-by-sens";
+	}
+
+	@GetMapping("/details/showSwiftsByLibelleType/{libelleType}")
+	public String detailsByLibelleTypeSwift(@RequestParam("libelleTypeSwift") String libelle, Model theModel) {
+
+		List<SwiftDetails> details = swiftDetailsService.findByLibelleTypeSwift(libelle);
+		List<TypeChamp> fields = typeChampService.getFieldsFromLibelleTypeSwift(libelle);
+		
+		theModel.addAttribute("detailsByLibelleTypeSwift", details);
+		theModel.addAttribute("theFields",fields);
+		
+		return "details-by-libelle-type-swift";
+	}
+	
+
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -123,4 +147,37 @@ public class SwiftController {
 		return "redirect:/login?logout";
 	}
 
+	  
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

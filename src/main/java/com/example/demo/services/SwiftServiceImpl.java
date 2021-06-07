@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,6 +60,18 @@ public class SwiftServiceImpl implements SwiftService {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public List<Swift> getSwiftsBySens(String sens) {
+		// TODO Auto-generated method stub
+		List<Swift> theSwifts = new ArrayList<Swift>();
+		for(Swift swift:swiftRepository.findAll()) {
+			if(swift.getSens().equals(sens)) {
+				theSwifts.add(swift);
+			}
+		}
+		return theSwifts;
 	}
 
 }

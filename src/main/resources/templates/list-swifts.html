@@ -46,13 +46,17 @@
 					<li class="nav-item"><a class="nav-link" href="/details">Details</a></li>
 				</ul>
 			</div>
-			<a href="@{/logout}" class="btn btn-outline-danger">logout</a>
+			<a th:href="@{/logout}" class="btn btn-outline-danger">logout</a>
 		</nav>
 		<p>Tapez dans la barre de recherche :</p>
 		<input class="form-control" id="myInput" type="text"
 			placeholder="Recherche.."> <br>
-		<table class="table table-bordered table-striped">
-			<thead class="thead-info">
+		<a	th:href="@{/swifts/showSwiftsBySens/{sens}(sensSwift=Entrant)}" class="btn btn-info btn-sm"> Swifts entrants </a>
+		<a	th:href="@{/swifts/showSwiftsBySens/{sens}(sensSwift=Sortant)}" class="btn btn-info btn-sm"> Swifts sortants </a>
+		<br>
+		<br>
+		<table class="table table-bordered table-striped" align="center">
+			<thead class="thead-info" align="center">
 				<tr>
 
 					<th>Id swift</th>
@@ -65,7 +69,7 @@
 				</tr>
 			</thead>
 
-			<tbody id="myTable">
+			<tbody id="myTable" align="center">
 				<tr th:each="tempSwift :${listSwifts}">
 
 					<td th:text="${tempSwift.idSwift}" />

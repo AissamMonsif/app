@@ -19,13 +19,14 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<title>Swift Directory</title>
+
+<title>Swift Details Directory</title>
 </head>
 
 <body>
 
 	<div class="container">
-		<h3>Type Champ Directory</h3>
+		<h3>Swift Details Directory</h3>
 		<hr>
 		<nav class="navbar navbar-expand-sm bg-light navbar-primary">
 			<a class="navbar-brand" href="/">HOME</a>
@@ -45,24 +46,51 @@
 		</nav>
 		<p>Tapez dans la barre de recherche :</p>
 		<input class="form-control" id="myInput" type="text"
-			placeholder="Recherche.."> <br>
+			placeholder="Recherche.."> <br> <a
+			th:href="@{/details/showSwiftsByLibelleType/{libelle}(libelleTypeSwift=MT103)}"
+			class="btn btn-info btn-sm"> MT103 </a> <a
+			th:href="@{/details/showSwiftsByLibelleType/{libelle}(libelleTypeSwift=MT202)}"
+			class="btn btn-info btn-sm"> MT202 </a> <a
+			th:href="@{/details/showSwiftsByLibelleType/{libelle}(libelleTypeSwift=MT400)}"
+			class="btn btn-info btn-sm"> MT400 </a> <a
+			th:href="@{/details/showSwiftsByLibelleType/{libelle}(libelleTypeSwift=MT700)}"
+			class="btn btn-info btn-sm"> MT700 </a> <br> <br>
+		<form th:action="@{/details/showSwiftsByLibelleType}" method="GET">
+			<p>
+				<label class="form-check-label">champs: <input
+					type="checkbox" name="champs" th:each="typeChamp : ${theFields}"
+					th:text="${typeChamp.libelle}" th:value="${typeChamp.idTypeChamp}"
+					th:field="*{theFields}" class="m-2" />
+				</label>
+			</p>
+
+			<input class="btn btn-info btn-sm" type="submit" value="Submit">
+		</form>
+		<br>
+
 		<table class="table table-bordered table-striped">
 			<thead class="thead-info">
 				<tr>
-					<th>id type champ</th>
-					<th>description</th>
-					<th>libelle</th>
-					<th>type swift</th>
+					<th>Id swift details</th>
+					<th>Swift</th>
+					<th>Type champ</th>
+					<th>Type swift</th>
+					<th>Contenu</th>
+					<th>Swift</th>
 				</tr>
 			</thead>
 
 			<tbody id="myTable">
-				<tr th:each="tempTypeChamp :${typeChamps}">
+				<tr th:each="tempDetailSwift :${detailsByLibelleTypeSwift}">
 
-					<td th:text="${tempTypeChamp.idTypeChamp}" />
-					<td th:text="${tempTypeChamp.description}" />
-					<td th:text="${tempTypeChamp.libelle}" />
-					<td th:text="${tempTypeChamp.typeSwift.libelle}" />
+					<td th:text="${tempDetailSwift.idSwiftDetails}" />
+					<td th:text="${tempDetailSwift.swift.idSwift}" />
+					<td th:text="${tempDetailSwift.typeChamp.libelle}" />
+					<td th:text="${tempDetailSwift.swift.typeSwift.libelle}" />
+					<td th:text="${tempDetailSwift.value}" />
+					<td><a
+						th:href="@{/details/showSwift/{tempDetailSwift.swift.idSwift}(swiftId=${tempDetailSwift.swift.idSwift})}"
+						class="btn btn-info btn-sm"> Editer le swift </a></td>
 
 				</tr>
 			</tbody>
@@ -94,6 +122,8 @@
 											});
 						});
 	</script>
+
+
 </body>
 </html>
 

@@ -10,9 +10,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -26,7 +26,8 @@ public class Swift {
 	@Column(name = "sens")
 	private String sens;
 
-	@Column(name = "message_swift", columnDefinition = "text")
+	@Column(name = "message_swift")//, columnDefinition = "text")
+	@Lob
 	private String messageSwift;
 
 	@ManyToOne
