@@ -5,6 +5,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.DAO.SwiftDetailsRepository;
@@ -22,13 +26,14 @@ public class TypeChampServiceImpl implements TypeChampService {
 	@Autowired
 	private SwiftDetailsRepository swiftDetailsRepository;
 	
-	@Autowired
-	private TypeSwiftRepository typeSwiftRepository;
 
 	@Override
-	public List<TypeChamp> findAllTypesChamps() {
-
-		return typeChampRepository.findAll();
+	public Page<TypeChamp> findAllTypesChamps(int pageNum, String sortField, String sortDir) {
+		Pageable pageable = PageRequest.of(pageNum - 1, 10, 
+				sortDir.equals("asc") ? Sort.by(sortField).ascending()
+									  : Sort.by(sortField).descending()
+		);
+		return typeChampRepository.findAll(pageable);
 	}
 
 	@Override

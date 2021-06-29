@@ -9,7 +9,9 @@ import com.example.demo.entity.TypeSwift;
 
 public interface TypeSwiftService {
 
-	public List<TypeSwift> findAllTypes();
+	public Page<TypeSwift> findAllTypes(int pageNum, String sortField, String sortDir);
+	
+	public List<TypeSwift> listAll();
 	
 	public TypeSwift findTypeById(int theId);
 	
@@ -20,7 +22,7 @@ public interface TypeSwiftService {
 	public List<Swift> getByTypeSwift(int theId);
 
 	public List<Swift> getByLibelleSwift(String libelle);
-	
+		
 	public List<Swift> getByCategorieSwift(String categorie);
 
 }

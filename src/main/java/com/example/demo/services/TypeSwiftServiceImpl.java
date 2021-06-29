@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -23,7 +24,7 @@ public class TypeSwiftServiceImpl implements TypeSwiftService {
 	private TypeSwiftRepository typeSwiftRepository;
 	@Autowired
 	private SwiftRepository swiftRepository;
-
+	
 	@Override
 	public TypeSwift findTypeById(int theId) {
 
@@ -66,33 +67,47 @@ public class TypeSwiftServiceImpl implements TypeSwiftService {
 	}
 
 	@Override
-	public List<TypeSwift> findAllTypes() {
+	public Page<TypeSwift> findAllTypes(int pageNum, String sortField, String sortDir) {
 		// TODO Auto-generated method stub
-		return typeSwiftRepository.findAll();
+
+		Pageable pageable = PageRequest.of(pageNum - 1, 35,
+				sortDir.equals("asc") ? Sort.by(sortField).ascending() : Sort.by(sortField).descending());
+		return typeSwiftRepository.findAll(pageable);
 	}
+	
 
 	@Override
 	public List<Swift> getByLibelleSwift(String libelle) {
 		// TODO Auto-generated method stub
 		List<Swift> theSwifts = new ArrayList<Swift>();
-		for(Swift swift:swiftRepository.findAll()) {
-			if(swift.getTypeSwift().getLibelle().equals(libelle)) {
+		for (Swift swift : swiftRepository.findAll()) {
+			if (swift.getTypeSwift().getLibelle().equals(libelle)) {
 				theSwifts.add(swift);
 			}
 		}
 		return theSwifts;
 	}
-	
+
 	@Override
 	public List<Swift> getByCategorieSwift(String categorie) {
 		// TODO Auto-generated method stub
 		List<Swift> theSwifts = new ArrayList<Swift>();
-		for(Swift swift:swiftRepository.findAll()) {
-			if(swift.getTypeSwift().getCategorie().equals(categorie)) {
+		for (Swift swift : swiftRepository.findAll()) {
+			if (swift.getTypeSwift().getCategorie().equals(categorie)) {
 				theSwifts.add(swift);
 			}
 		}
 		return theSwifts;
 	}
+
+	@Override
+	public List<TypeSwift> listAll() {
+		// TODO Auto-generated method stub
+		return typeSwiftRepository.findAll();
+	}
+
+
+
+
 
 }

@@ -5,6 +5,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.DAO.SwiftDetailsRepository;
@@ -24,7 +29,13 @@ public class SwiftServiceImpl implements SwiftService {
 	public List<Swift> findAllSwifts() {
 		return swiftRepository.findAll();
 	}
-
+	@Override
+	public Page<Swift> findAllSwifts(int pageNum, String sortField, String sortDir) {
+		Pageable pageable = PageRequest.of(pageNum - 1, 10,
+				sortDir.equals("asc") ? Sort.by(sortField).ascending() : Sort.by(sortField).descending());
+		return swiftRepository.findAll(pageable);
+	}
+	
 	@Override
 	public Swift findById(int id) {
 		Optional<Swift> result = swiftRepository.findById(id);
@@ -61,17 +72,18 @@ public class SwiftServiceImpl implements SwiftService {
 		}
 		return null;
 	}
-
+	
 	@Override
 	public List<Swift> getSwiftsBySens(String sens) {
-		// TODO Auto-generated method stub
-		List<Swift> theSwifts = new ArrayList<Swift>();
-		for(Swift swift:swiftRepository.findAll()) {
-			if(swift.getSens().equals(sens)) {
-				theSwifts.add(swift);
-			}
+
+		if (sens.equals("ALL")) {
+			return swiftRepository.findAll();
 		}
-		return theSwifts;
+		
+		return swiftRepository.findBySens(sens);
 	}
+
+	
+
 
 }

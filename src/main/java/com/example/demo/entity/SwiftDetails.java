@@ -10,6 +10,8 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "swift_details")
 public class SwiftDetails {
@@ -20,6 +22,7 @@ public class SwiftDetails {
 
 	@ManyToOne
 	@JoinColumn(name = "id_swift")
+	//@JsonIgnore
 	private Swift swift;
 
 	@Column(name = "value")//, columnDefinition = "text")

@@ -2,12 +2,14 @@ package com.example.demo.services;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.example.demo.entity.SwiftDetails;
 import com.example.demo.entity.TypeChamp;
 
 public interface TypeChampService {
 
-	public List<TypeChamp> findAllTypesChamps();
+	public Page<TypeChamp> findAllTypesChamps(int pageNum, String sortField, String sortDir);
 	
 	public TypeChamp findTypeChampById(int theId);
 	

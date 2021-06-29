@@ -1,0 +1,167 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+	crossorigin="anonymous">
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<title>Swift Details Directory</title>
+</head>
+
+<body>
+
+	<div class="container" align="center">
+		<h3>Swift Details Directory</h3>
+		<hr>
+		<nav class="navbar navbar-expand-sm bg-light navbar-primary">
+			<a class="navbar-brand" href="/">HOME</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#collapsibleNavbar">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="collapsibleNavbar">
+				<ul class="navbar-nav">
+					<li class="nav-item"><a class="nav-link" href="/swifts">Rechercher
+							les swifts</a></li>
+					<li class="nav-item"><a class="nav-link" href="/details">Rechercher
+							les details des swifts</a></li>
+					<li class="nav-item"><a class="nav-link" href="/types">Voir
+							les types de swifts</a></li>
+					<li class="nav-item"><a class="nav-link" href="/champs">Voir
+							les types de champs</a></li>
+				</ul>
+			</div>
+			<a th:href="@{/logout}" class="btn btn-outline-danger">logout</a>
+		</nav>
+		<h3>Liste des détails de tous les swifts</h3>
+		<p>Tapez dans la barre de recherche :</p>
+		<input class="form-control" id="myInput" type="text"
+			placeholder="Recherche.."> <br> <a
+			th:href="@{/details/showSwiftsByLibelleType/{libelle}(libelleTypeSwift=MT103)}"
+			class="btn btn-info btn-sm"> MT103 </a> <a
+			th:href="@{/details/showSwiftsByLibelleType/{libelle}(libelleTypeSwift=MT202)}"
+			class="btn btn-info btn-sm"> MT202 </a> <a
+			th:href="@{/details/showSwiftsByLibelleType/{libelle}(libelleTypeSwift=MT400)}"
+			class="btn btn-info btn-sm"> MT400 </a> <a
+			th:href="@{/details/showSwiftsByLibelleType/{libelle}(libelleTypeSwift=MT700)}"
+			class="btn btn-info btn-sm"> MT700 </a> <br> <br>
+		<!-- <form th:action="@{/details/showSwiftsByLibelleType}" method="GET">
+			 <p>
+				<label class="form-check-label">champs: <input
+					type="checkbox" name="champs" th:each="typeChamp : ${theFields}"
+					th:text="${typeChamp.libelle}" th:value="${typeChamp.idTypeChamp}"
+					th:field="*{theFields}" class="m-2" />
+				</label>
+			</p>
+			
+
+			<input class="btn btn-info btn-sm" type="submit" value="Submit">
+		</form>
+		<br> -->
+
+		<table class="table table-bordered table-striped">
+			<thead class="thead-info">
+				<tr>
+					<th><a
+						th:href="@{'/details/showDetailsByLibelleTypeChamp/{lib}/' + ${currentPage} + '?sortField=typeChamp&sortDir=' + ${reverseSortDir}}">Type
+							champ</a></th>
+					<th><a
+						th:href="@{'/details/showDetailsByLibelleTypeChamp/{lib}/' + ${currentPage} + '?sortField=typeSwift&sortDir=' + ${reverseSortDir}}">Type
+							swift</a></th>
+					<th><a
+						th:href="@{'/details/showDetailsByLibelleTypeChamp/{lib}/' + ${currentPage} + '?sortField=designation&sortDir=' + ${reverseSortDir}}">Designation</a>
+					</th>
+					<th>swift</th>
+				</tr>
+
+			</thead>
+
+			<tbody id="myTable">
+				<tr th:each="tempDetailSwift :${detailsByLibelleTypeChamp}">
+
+					<td th:text="${tempDetailSwift.typeChamp.libelle}" />
+					<td th:text="${tempDetailSwift.swift.typeSwift.libelle}" />
+					<td th:text="${tempDetailSwift.value}" />
+					<td><a
+						th:href="@{/details/showSwift/{tempDetailSwift.swift.idSwift}(swiftId=${tempDetailSwift.swift.idSwift})}"
+						class="btn btn-info btn-sm"> Editer le swift </a></td>
+
+				</tr>
+			</tbody>
+		</table>
+		<div>&nbsp;</div>
+		<!-- 		<div> -->
+		<!-- 			<i>Sorted by [[${sortField}]] in [[${sortDir}]] order</i> -->
+		<!-- 		</div> -->
+		<div>&nbsp;</div>
+		<div th:if="${totalPages > 1}">
+			&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp; <br> <a
+				th:if="${currentPage > 1}"
+				th:href="@{'/details/showDetailsByLibelleTypeChamp/{lib}/1' + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Debut</a>
+			<span th:unless="${currentPage > 1}">Debut</span> &nbsp;&nbsp; <a
+				th:if="${currentPage > 1}"
+				th:href="@{'/details/showDetailsByLibelleTypeChamp/{lib}/' + ${currentPage - 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Precedent</a>
+			<span th:unless="${currentPage > 1}">Precedent</span> &nbsp;&nbsp; <span
+				th:each="i: ${#numbers.sequence(1, totalPages)}"> <a
+				th:if="${currentPage != i}"
+				th:href="@{'/details/showDetailsByLibelleTypeChamp/{lib}/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+				<span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp;
+			</span> <a th:if="${currentPage < totalPages}"
+				th:href="@{'/details/showDetailsByLibelleTypeChamp/{lib}/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Suivant</a>
+			<span th:unless="${currentPage < totalPages}">Suivant</span>
+			&nbsp;&nbsp; <a th:if="${currentPage < totalPages}"
+				th:href="@{'/details/showDetailsByLibelleTypeChamp/{lib}/' + ${totalPages} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Fin</a>
+			<span th:unless="${currentPage < totalPages}">Fin</span>
+		</div>
+		<br> <br> <br> <br>
+	</div>
+
+	</div>
+	</div>
+	<script>
+		$(document)
+				.ready(
+						function() {
+							$("#myInput")
+									.on(
+											"keyup",
+											function() {
+												var value = $(this).val()
+														.toLowerCase();
+												$("#myTable tr")
+														.filter(
+																function() {
+																	$(this)
+																			.toggle(
+																					$(
+																							this)
+																							.text()
+																							.toLowerCase()
+																							.indexOf(
+																									value) > -1)
+																});
+											});
+						});
+	</script>
+
+
+</body>
+</html>
+
+
+

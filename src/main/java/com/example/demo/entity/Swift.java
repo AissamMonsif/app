@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+
 import java.util.Date;
 import java.util.List;
 
@@ -15,9 +16,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "swift")
-public class Swift {
+public class Swift  {
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_swift")
@@ -37,6 +42,7 @@ public class Swift {
 	@Column(name = "date_insertion")
 	private Date dateInsertion;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "swift", cascade = CascadeType.MERGE)
 	private List<SwiftDetails> details;
 
