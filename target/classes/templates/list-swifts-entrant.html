@@ -15,6 +15,7 @@
 <link rel="stylesheet"
 	href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css
 ">
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
@@ -103,8 +104,8 @@ td {
 		<h3>Liste des swifts</h3>
 <!-- 		<p>Tapez dans la barre de recherche :</p> -->
 <!-- 		<input class="form-control" id="myInput" type="text" -->
-<!-- 			placeholder="Recherche.."> <br> <br>-->
- <a 
+<!-- 			placeholder="Recherche.."> <br> <br> -->
+<a 
 			class="btn btn-primary" href="/swiftsEntrant">Swifts Entrants</a> <a
 			class="btn btn-primary" href="/swiftsSortant">Swifts Sortants</a>
 		<!-- 
@@ -115,56 +116,64 @@ td {
  -->
 		<br> <br>
 
-		<!-- 		<table -->
-		<!-- 			class="table  table-bordered table-striped table-hover table-sm " -->
-		<!-- 			align="center" id="myTable"> -->
-		<!-- 			<thead class="thead-info" align="center"> -->
-		<!-- 				<tr> -->
-		<!-- 					<th> -->
-		<!-- 						Details du swift -->
-		<!-- 					</th> -->
+<!-- 		<table -->
+<!-- 			class="table  table-bordered table-striped table-hover table-sm " -->
+<!-- 			align="center" id="myTable"> -->
+<!-- 			<thead class="thead-info" align="center"> -->
+<!-- 				<tr> -->
+<!-- 					<th> -->
+<!-- 						Details du swift -->
+<!-- 					</th> -->
 
-		<!-- 					<th>Date insertion</th> -->
-		<!-- 					<th>Sens</th> -->
-		<!-- 					<th>Type swift</th> -->
-		<!-- 					<th>Message</th> -->
-		<!-- 					<th>Details du swift</th> -->
+<!-- 					<th>Date insertion</th> -->
+<!-- 					<th>Sens</th> -->
+<!-- 					<th>Type swift</th> -->
+<!-- 					<th>Message</th> -->
+<!-- 					<th>Details du swift</th> -->
 
-		<!-- 				</tr> -->
-		<!-- 			</thead> -->
+<!-- 				</tr> -->
+<!-- 			</thead> -->
 
-		<!-- 			<tbody id="myTable"> -->
-		<!-- 				<tr th:each="tempSwift :${swifts}"> -->
-		<!-- 					<td><a -->
-		<!-- 						th:href="@{/swifts/showDetails/{idSwift}(swiftId=${tempSwift.idSwift})}" -->
-		<!-- 						class="btn btn-info btn-sm"> Details du swift </a> -->
-		<!-- 					<p></p></td> -->
-		<!-- 					<td class=" text-nowrap" th:text="${tempSwift.dateInsertion}" /> -->
-		<!-- 					<td class=" text-nowrap" th:text="${tempSwift.sens}" /> -->
-		<!-- 					<td class=" text-nowrap" th:text="${tempSwift.typeSwift.libelle}" /> -->
-		<!-- 					<td class=" text-nowrap" align="left" -->
-		<!-- 						th:text="${tempSwift.messageSwift}" /> -->
+<!-- 			<tbody id="myTable"> -->
+<!-- 				<tr th:each="tempSwift :${swiftsEntrant}"> -->
+<!-- 					<td><a -->
+<!-- 						th:href="@{/swifts/showDetails/{idSwift}(swiftId=${tempSwift.idSwift})}" -->
+<!-- 						class="btn btn-info btn-sm"> Details du swift </a> -->
+<!-- 					<p></p></td> -->
+<!-- 					<td class=" text-nowrap" th:text="${tempSwift.dateInsertion}" /> -->
+<!-- 					<td class=" text-nowrap" th:text="${tempSwift.sens}" /> -->
+<!-- 					<td class=" text-nowrap" th:text="${tempSwift.typeSwift.libelle}" /> -->
+<!-- 					<td class=" text-nowrap" align="left" -->
+<!-- 						th:text="${tempSwift.messageSwift}" /> -->
 
-		<!-- 				</tr> -->
-		<!-- 			</tbody> -->
-		<!-- 		</table> -->
-		<table id="table_id" class="display" data-ordering="true"
-			style="width: 100%">
-			<thead>
+<!-- 				</tr> -->
+<!-- 			</tbody> -->
+<!-- 		</table> -->
+			<table id="table_id" class="display" data-ordering="true"
+			style="width: 100%"
+			
+			align="center" >
+			<thead class="thead-info" align="center">
 				<tr>
-					<th>Action</th>
+					<th>
+						Details du swift
+					</th>
+
 					<th>Date insertion</th>
 					<th>Sens</th>
 					<th>Type swift</th>
 					<th>Message</th>
+					<!-- <th>Details du swift</th> -->
+
 				</tr>
 			</thead>
-			<tbody id="data_table">
-				<tr th:each="tempSwift :${swifts}">
+
+			<tbody id="myTable">
+				<tr th:each="tempSwift :${swiftsEntrant}">
 					<td><a
 						th:href="@{/swifts/showDetails/{idSwift}(swiftId=${tempSwift.idSwift})}"
 						class="btn btn-info btn-sm"> Details du swift </a>
-						<p></p></td>
+					<p></p></td>
 					<td class=" text-nowrap" th:text="${tempSwift.dateInsertion}" />
 					<td class=" text-nowrap" th:text="${tempSwift.sens}" />
 					<td class=" text-nowrap" th:text="${tempSwift.typeSwift.libelle}" />
@@ -174,6 +183,7 @@ td {
 				</tr>
 			</tbody>
 		</table>
+
 		<br> <br> <br> <br>
 	</div>
 	<script>

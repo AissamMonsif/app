@@ -6,8 +6,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css
+">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js
+	"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script
@@ -46,7 +52,33 @@
 			<a th:href="@{/logout}" class="btn btn-outline-danger">logout</a>
 		</nav>
 		<h3>Swifts similaires</h3>
-		<table class="table table-striped" th:object="${swift}">
+<!-- 		<table -->
+<!-- 			class="table table-dark table-bordered table-striped table-hover table-sm " -->
+<!-- 			th:object="${swift}"> -->
+<!-- 			<thead class="thead-info"> -->
+<!-- 				<tr> -->
+
+<!-- 					<th>Type du swift</th> -->
+<!-- 					<th>Sens</th> -->
+<!-- 					<th>Date insertion</th> -->
+<!-- 					<th>Message</th> -->
+<!-- 				</tr> -->
+<!-- 			</thead> -->
+<!-- 			<tbody> -->
+<!-- 				<tr th:each="tempSwift :${swiftsByType}"> -->
+<!-- 					<td th:text="${tempSwift.typeSwift.libelle}" /> -->
+<!-- 					<td th:text="${tempSwift.sens}" /> -->
+<!-- 					<td th:text="${tempSwift.dateInsertion}" /> -->
+<!-- 					<td th:text="${tempSwift.messageSwift}" /> -->
+<!-- 				</tr> -->
+
+
+<!-- 			</tbody> -->
+<!-- 		</table> -->
+			<table id="table_id"  data-ordering="true"
+			style="width: 100%"
+			class="table  table-bordered table-striped table-hover table-sm ">
+<!-- 			th:object="${swift}"> -->
 			<thead class="thead-info">
 				<tr>
 
@@ -72,6 +104,32 @@
 
 	</div>
 
+	<script>
+		$(document)
+				.ready(
+						function() {
+							$('#table_id').DataTable();
+							$("#myInput")
+									.on(
+											"keyup",
+											function() {
+												var value = $(this).val()
+														.toLowerCase();
+												$("#myTable tr")
+														.filter(
+																function() {
+																	$(this)
+																			.toggle(
+																					$(
+																							this)
+																							.text()
+																							.toLowerCase()
+																							.indexOf(
+																									value) > -1)
+																});
+											});
+						});
+	</script>
 
 
 </body>

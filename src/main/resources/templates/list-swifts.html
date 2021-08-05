@@ -12,9 +12,14 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	crossorigin="anonymous">
-
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css
+">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js
+	"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script
@@ -27,6 +32,48 @@
 }
 </style>
 <title>Swift Directory</title>
+
+<style>
+/* The heart of the matter */
+.horizontal-scrollable>.row {
+	overflow-x: auto;
+	white-space: nowrap;
+}
+
+.horizontal-scrollable>.row>.col-xs-4 {
+	display: inline-block;
+	float: none;
+}
+/* Decorations */
+.col-xs-4 {
+	color: white;
+	font-size: 24px;
+	padding-bottom: 20px;
+	padding-top: 18px;
+}
+
+.col-xs-4:nth-child(2n+1) {
+	background: green;
+}
+
+.col-xs-4:nth-child(2n+2) {
+	background: black;
+}
+
+table {
+	display: block;
+	max-width: -moz-fit-content;
+	max-width: fit-content;
+	margin: 0 auto;
+	overflow-x: auto;
+	white-space: nowrap;
+}
+
+td {
+	max-width: 67%;
+}
+</style>
+
 </head>
 
 <body>
@@ -54,91 +101,86 @@
 			<a th:href="@{/logout}" class="btn btn-outline-danger">logout</a>
 		</nav>
 		<h3>Liste des swifts</h3>
-		<p>Tapez dans la barre de recherche :</p>
-		<input class="form-control" id="myInput" type="text"
-			placeholder="Recherche.."> <br> <br>
+<!-- 		<p>Tapez dans la barre de recherche :</p> -->
+<!-- 		<input class="form-control" id="myInput" type="text" -->
+<!-- 			placeholder="Recherche.."> <br> <br>-->
+ <a 
+			class="btn btn-primary" href="/swiftsEntrant">Swifts Entrants</a> <a
+			class="btn btn-primary" href="/swiftsSortant">Swifts Sortants</a>
+		<!-- 
 		<button id="SwiftsEntrant" type="button" class="btn btn-primary"
 			align="center">Entrant</button>
 		<button id="SwiftsSortant" type="button" class="btn btn-primary"
 			align="center">Sortant</button>
+ -->
 		<br> <br>
-<!-- 		<table class="table table-bordered table-striped" id="swiftsTbl" -->
-<!-- 			align="center"> -->
-<!-- 			<thead class="thead-info"> -->
-<!-- 				<tr> -->
-<!-- 					<th>Sens</th> -->
-<!-- 					<th>Date d'insertion</th> -->
-<!-- 					<th>TypeSwift</th> -->
-<!-- 					<th>Details</th> -->
-<!-- 				</tr> -->
-<!-- 			</thead> -->
-<!-- 			<tbody id="swiftsTbl"> -->
-<!-- 			</tbody> -->
-<!-- 		</table> -->
-		<table class="table table-bordered table-striped" align="center"
-			id="myTable">
-			<thead class="thead-info" align="center">
-				<tr>
-					<th><a
-						th:href="@{'/swifts/' + ${currentPage} + '?sortField=dateInsertion&sortDir=' + ${reverseSortDir}}">Date
-							insertion</a></th>
-					<th><a
-						th:href="@{'/swifts/' + ${currentPage} + '?sortField=sens&sortDir=' + ${reverseSortDir}}">Sens</a>
-					</th>
-					<th><a
-						th:href="@{'/swifts/' + ${currentPage} + '?sortField=typeSwift&sortDir=' + ${reverseSortDir}}">Type
-							swift</a></th>
-					<th><a
-						th:href="@{'/swifts/' + ${currentPage} + '?sortField=idSwift&sortDir=' + ${reverseSortDir}}">Message</a>
-					</th>
-					<th>Details du swift</th>
 
+		<!-- 		<table -->
+		<!-- 			class="table  table-bordered table-striped table-hover table-sm " -->
+		<!-- 			align="center" id="myTable"> -->
+		<!-- 			<thead class="thead-info" align="center"> -->
+		<!-- 				<tr> -->
+		<!-- 					<th> -->
+		<!-- 						Details du swift -->
+		<!-- 					</th> -->
+
+		<!-- 					<th>Date insertion</th> -->
+		<!-- 					<th>Sens</th> -->
+		<!-- 					<th>Type swift</th> -->
+		<!-- 					<th>Message</th> -->
+		<!-- 					<th>Details du swift</th> -->
+
+		<!-- 				</tr> -->
+		<!-- 			</thead> -->
+
+		<!-- 			<tbody id="myTable"> -->
+		<!-- 				<tr th:each="tempSwift :${swifts}"> -->
+		<!-- 					<td><a -->
+		<!-- 						th:href="@{/swifts/showDetails/{idSwift}(swiftId=${tempSwift.idSwift})}" -->
+		<!-- 						class="btn btn-info btn-sm"> Details du swift </a> -->
+		<!-- 					<p></p></td> -->
+		<!-- 					<td class=" text-nowrap" th:text="${tempSwift.dateInsertion}" /> -->
+		<!-- 					<td class=" text-nowrap" th:text="${tempSwift.sens}" /> -->
+		<!-- 					<td class=" text-nowrap" th:text="${tempSwift.typeSwift.libelle}" /> -->
+		<!-- 					<td class=" text-nowrap" align="left" -->
+		<!-- 						th:text="${tempSwift.messageSwift}" /> -->
+
+		<!-- 				</tr> -->
+		<!-- 			</tbody> -->
+		<!-- 		</table> -->
+		<table id="table_id" class="display" data-ordering="true"
+			style="width: 100%">
+			<thead>
+				<tr>
+					<th>Action</th>
+					<th>Date insertion</th>
+					<th>Sens</th>
+					<th>Type swift</th>
+					<th>Message</th>
 				</tr>
 			</thead>
-
-			<tbody id="myTable" align="center">
-				<tr th:each="tempSwift :${listSwifts}">
-
-					<td th:text="${tempSwift.dateInsertion}" />
-					<td th:text="${tempSwift.sens}" />
-					<td th:text="${tempSwift.typeSwift.libelle}" />
-					<td th:text="${tempSwift.messageSwift}" />
+			<tbody id="data_table">
+				<tr th:each="tempSwift :${swifts}">
 					<td><a
 						th:href="@{/swifts/showDetails/{idSwift}(swiftId=${tempSwift.idSwift})}"
-						class="btn btn-info btn-sm"> Consulter les details du swift </a></td>
+						class="btn btn-info btn-sm"> Details du swift </a>
+						<p></p></td>
+					<td class=" text-nowrap" th:text="${tempSwift.dateInsertion}" />
+					<td class=" text-nowrap" th:text="${tempSwift.sens}" />
+					<td class=" text-nowrap" th:text="${tempSwift.typeSwift.libelle}" />
+					<td class=" text-nowrap" align="left"
+						th:text="${tempSwift.messageSwift}" />
+
 				</tr>
 			</tbody>
 		</table>
-		<div>&nbsp;</div> 
-		<!-- 		<div> -->
-		<!-- 			<i>Sorted by [[${sortField}]] in [[${sortDir}]] order</i> -->
-		<!-- 		</div> -->
-		<div>&nbsp;</div>
-		<div th:if="${totalPages > 1}">
-			&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp; <br> <a
-				th:if="${currentPage > 1}"
-				th:href="@{'/swifts/1' + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Debut</a>
-			<span th:unless="${currentPage > 1}">Debut</span> &nbsp;&nbsp; <a
-				th:if="${currentPage > 1}"
-				th:href="@{'/swifts/' + ${currentPage - 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Precedent</a>
-			<span th:unless="${currentPage > 1}">Precedent</span> &nbsp;&nbsp; <span
-				th:each="i: ${#numbers.sequence(1, totalPages)}"> <a
-				th:if="${currentPage != i}"
-				th:href="@{'/swifts/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
-				<span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp;
-			</span> <a th:if="${currentPage < totalPages}"
-				th:href="@{'/swifts/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Suivant</a>
-			<span th:unless="${currentPage < totalPages}">Suivant</span>
-			&nbsp;&nbsp; <a th:if="${currentPage < totalPages}"
-				th:href="@{'/swifts/' + ${totalPages} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Fin</a>
-			<span th:unless="${currentPage < totalPages}">Fin</span>
-		</div>
 		<br> <br> <br> <br>
 	</div>
 	<script>
 		$(document)
 				.ready(
 						function() {
+							$('#table_id').DataTable();
 							$("#myInput")
 									.on(
 											"keyup",

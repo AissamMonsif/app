@@ -12,9 +12,14 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	crossorigin="anonymous">
-
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css
+">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js
+	"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script
@@ -47,57 +52,48 @@
 			<a th:href="@{/logout}" class="btn btn-outline-danger">logout</a>
 		</nav>
 		<h3>Liste des types de champ</h3>
-<!-- 		<p>Rechercher par mot clé :</p> -->
-<!-- 		<input class="form-control" id="myInput" type="text" -->
-<!-- 			placeholder="Recherche.."> <br> -->
-		<table class="table table-bordered table-striped">
+		<!-- 		<p>Rechercher par mot clé :</p> -->
+		<!-- 		<input class="form-control" id="myInput" type="text" -->
+		<!-- 			placeholder="Recherche.."> <br> -->
+<!-- 		<table -->
+<!-- 			class="table table-dark table-bordered table-striped table-hover table-sm "> -->
+<!-- 			<thead class="thead-info"> -->
+<!-- 				<tr> -->
+<!-- 					<th>Libelle</th> -->
+<!-- 					<th>Type Swift</th> -->
+<!-- 					<th>Description</th> -->
+
+<!-- 				</tr> -->
+<!-- 			</thead> -->
+
+<!-- 			<tbody id="myTable"> -->
+<!-- 				<tr th:each="tempTypeChamp :${champs}"> -->
+<!-- 					<td th:text="${tempTypeChamp.libelle}" /> -->
+<!-- 					<td th:text="${tempTypeChamp.typeSwift.libelle}" /> -->
+<!-- 					<td th:text="${tempTypeChamp.description}" /> -->
+<!-- 				</tr> -->
+<!-- 			</tbody> -->
+<!-- 		</table> -->
+		<table id="table_id" class="display" data-ordering="true"
+			style="width: 100%">
 			<thead class="thead-info">
 				<tr>
-					<th><a
-						th:href="@{'/champs/' + ${currentPage} + '?sortField=libelle&sortDir=' + ${reverseSortDir}}">Libelle</a></th>
-					<th><a
-						th:href="@{'/champs/' + ${currentPage} + '?sortField=typeSwift&sortDir=' + ${reverseSortDir}}">Type
-							Swift</a></th>
-					<th><a
-						th:href="@{'/champs/' + ${currentPage} + '?sortField=description&sortDir=' + ${reverseSortDir}}">Description</a>
-					</th>
+					<th>Libelle</th>
+					<th>Type Swift</th>
+					<th>Description</th>
 
 				</tr>
 			</thead>
 
 			<tbody id="myTable">
-				<tr th:each="tempTypeChamp :${typeChamps}">
+				<tr th:each="tempTypeChamp :${champs}">
 					<td th:text="${tempTypeChamp.libelle}" />
 					<td th:text="${tempTypeChamp.typeSwift.libelle}" />
 					<td th:text="${tempTypeChamp.description}" />
 				</tr>
 			</tbody>
 		</table>
-		<div>&nbsp;</div>
-		<!-- 		<div> -->
-		<!-- 			<i>Sorted by [[${sortField}]] in [[${sortDir}]] order</i> -->
-		<!-- 		</div> -->
-		<div>&nbsp;</div>
-		<div th:if="${totalPages > 1}">
-			
-			&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp; <br> <a
-				th:if="${currentPage > 1}"
-				th:href="@{'/champs/1' + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Debut</a>
-			<span th:unless="${currentPage > 1}">Debut</span> &nbsp;&nbsp; <a
-				th:if="${currentPage > 1}"
-				th:href="@{'/champs/' + ${currentPage - 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Precedent</a>
-			<span th:unless="${currentPage > 1}">Precedent</span> &nbsp;&nbsp; <span
-				th:each="i: ${#numbers.sequence(1, totalPages)}"> <a
-				th:if="${currentPage != i}"
-				th:href="@{'/champs/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
-				<span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp;
-			</span> <a th:if="${currentPage < totalPages}"
-				th:href="@{'/champs/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Suivant</a>
-			<span th:unless="${currentPage < totalPages}">Suivant</span>
-			&nbsp;&nbsp; <a th:if="${currentPage < totalPages}"
-				th:href="@{'/champs/' + ${totalPages} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Fin</a>
-			<span th:unless="${currentPage < totalPages}">Fin</span>
-		</div>
+
 		<br> <br> <br> <br>
 
 	</div>
@@ -105,6 +101,7 @@
 		$(document)
 				.ready(
 						function() {
+							$('#table_id').DataTable();
 							$("#myInput")
 									.on(
 											"keyup",

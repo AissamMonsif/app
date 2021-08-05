@@ -13,7 +13,7 @@ GET: $(document).ready(
 				ajaxGetSwiftsBySens("Sortant");
 			});
 
-			function ajaxGetSwiftsBySens(sens) {
+		function ajaxGetSwiftsBySens(sens) {
 				$.ajax({
 					type : "GET",
 					url : "get-swifts-sens?sens=" + sens,
@@ -25,8 +25,10 @@ GET: $(document).ready(
 						$.each(result.data, function(i, swift) {
 							var ts = '<tr><td>' + swift.dateInsertion
 									+ '</td><td>' + swift.sens + '</td><td>'
-									+ swift.typeSwift.libelle + '</td><td>'
-									+ swift.messageSwift
+								+ swift.typeSwift.libelle + '</td><td>'
+									+ swift.messageSwift+ '</td><td>'
+									+'<a href="/swifts/showDetails/{idSwift}?swiftId='
+									+swift.idSwift+'"\" class=\"btn btn-info btn-sm\"> Consulter les details du swift  </a>'
 							'</td></tr>';
 							$('#myTable tbody').append(ts)
 
@@ -40,5 +42,6 @@ GET: $(document).ready(
 					}
 				});
 			}
+			
 
 		})

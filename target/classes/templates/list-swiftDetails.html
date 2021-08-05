@@ -12,15 +12,22 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	crossorigin="anonymous">
-
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css
+">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js
+	"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="/getSwiftDetailsRequest.js"></script>
 <title>Swift Details Directory</title>
+
+
 </head>
 
 <body>
@@ -48,9 +55,9 @@
 			<a th:href="@{/logout}" class="btn btn-outline-danger">logout</a>
 		</nav>
 		<h3>Liste des détails de tous les swifts</h3>
-		<p>Tapez dans la barre de recherche :</p>
-		<input class="form-control" id="myInput" type="text"
-			placeholder="Recherche.."> <br>
+<!-- 		<p>Tapez dans la barre de recherche :</p> -->
+<!-- 		<input class="form-control" id="myInput" type="text" -->
+<!-- 			placeholder="Recherche.."> <br> -->
 		<div id="libelles-types">
 			<button id="MT103" type="button" class="btn btn-primary"
 				align="center">MT103</button>
@@ -63,66 +70,102 @@
 
 		</div>
 		<br>
-		<table class="table table-bordered table-striped" id="myTable">
-			<thead class="thead-info">
-				<tr>
-					<th><a
-						th:href="@{'/details/' + ${currentPage} + '?sortField=typeChamp&sortDir=' + ${reverseSortDir}}">Type
-							champ </a></th>
-					<th><a
-						th:href="@{'/details/' + ${currentPage} + '?sortField=typeSwift&sortDir=' + ${reverseSortDir}}">Type
-							Swift</a></th>
-					<th><a
-						th:href="@{'/details/' + ${currentPage} + '?sortField=value&sortDir=' + ${reverseSortDir}}">Contenu
-					</a></th>
+		<form action="#" id="fields"></form>
 
-					<th>Swift</th>
+		<br>
+<!-- 		<table -->
+<!-- 			class="table  table-bordered table-striped table-hover table-sm " -->
+<!-- 			align="center" id="myTable"> -->
+<!-- 			<thead class="thead-info" align="center"> -->
+<!-- 				<tr> -->
+
+<!-- 					<th>Type champ</th> -->
+
+<!-- 					<th>Type Swift</th> -->
+
+<!-- 					<th>Contenu</th> -->
+
+<!-- 					<th>Swift</th> -->
+<!-- 				</tr> -->
+<!-- 			</thead> -->
+
+<!-- 			<tbody id="myTable"> -->
+<!-- 				<tr th:each="tempDetailSwift :${details}"> -->
+
+<!-- 					<td align="center" th:text="${tempDetailSwift.typeChamp.libelle}" /> -->
+<!-- 					<td align="center" -->
+<!-- 						th:text="${tempDetailSwift.swift.typeSwift.libelle}" /> -->
+<!-- 					<td align="center" th:text="${tempDetailSwift.value}" /> -->
+<!-- 					<td align="center" class=" text-nowrap"><a -->
+<!-- 						th:href="@{/details/showSwift/{tempDetailSwift.swift.idSwift}(swiftId=${tempDetailSwift.swift.idSwift})}" -->
+<!-- 						class="btn btn-info btn-sm"> Consulter le swift </a></td> -->
+<!-- 					<td align="center" class=" text-nowrap"><a -->
+<!-- 						th:href="@{/swifts/showDetails/{idSwift}(swiftId=${tempDetailSwift.swift.idSwift})}" -->
+<!-- 						class="btn btn-info btn-sm"> Consulter les details du swift </a></td> -->
+
+<!-- 				</tr> -->
+<!-- 			</tbody> -->
+<!-- 		</table> -->
+			<table id="table_id" class="display" data-ordering="true"
+			style="width: 100%">
+			<thead class="thead-info" align="center">
+				<tr>
+
+					<th>Type champ</th>
+
+					<th>Type Swift</th>
+
+					<th>Contenu</th>
+					
+					<th>Action</th>
+					
+					<th>Action</th>
+
+					<!-- <th>Swift</th> -->
 				</tr>
 			</thead>
 
 			<tbody id="myTable">
-				<tr th:each="tempDetailSwift :${listSwiftDetails}">
+				<tr th:each="tempDetailSwift :${details}">
 
-					<td th:text="${tempDetailSwift.typeChamp.description}" />
-					<td th:text="${tempDetailSwift.swift.typeSwift.libelle}" />
-					<td th:text="${tempDetailSwift.value}" />
-					<td><a
+					<td align="center" th:text="${tempDetailSwift.typeChamp.libelle}" />
+					<td align="center"
+						th:text="${tempDetailSwift.swift.typeSwift.libelle}" />
+					<td align="center" th:text="${tempDetailSwift.value}" />
+					<td align="center" class=" text-nowrap"><a
 						th:href="@{/details/showSwift/{tempDetailSwift.swift.idSwift}(swiftId=${tempDetailSwift.swift.idSwift})}"
-						class="btn btn-info btn-sm"> Editer le swift </a></td>
+						class="btn btn-info btn-sm"> Consulter le swift </a></td>
+					<td align="center" class=" text-nowrap"><a
+						th:href="@{/swifts/showDetails/{idSwift}(swiftId=${tempDetailSwift.swift.idSwift})}"
+						class="btn btn-info btn-sm"> Consulter les details du swift </a></td>
 
 				</tr>
-			</tbody>
-		</table>
-		<div>&nbsp;</div>
-		<!-- 		<div> -->
-		<!-- 			<i>Sorted by [[${sortField}]] in [[${sortDir}]] order</i> -->
-		<!-- 		</div> -->
-		<div>&nbsp;</div>
-		<div th:if="${totalPages > 1}">
-			&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp; <br> <a
-				th:if="${currentPage > 1}"
-				th:href="@{'/details/1' + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Debut</a>
-			<span th:unless="${currentPage > 1}">Debut</span> &nbsp;&nbsp; <a
-				th:if="${currentPage > 1}"
-				th:href="@{'/details/' + ${currentPage - 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Precedent</a>
-			<span th:unless="${currentPage > 1}">Precedent</span> &nbsp;&nbsp; <span
-				th:each="i: ${#numbers.sequence(1, totalPages)}"> <a
-				th:if="${currentPage != i}"
-				th:href="@{'/details/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
-				<span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp;
-			</span> <a th:if="${currentPage < totalPages}"
-				th:href="@{'/details/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Suivant</a>
-			<span th:unless="${currentPage < totalPages}">Suivant</span>
-			&nbsp;&nbsp; <a th:if="${currentPage < totalPages}"
-				th:href="@{'/details/' + ${totalPages} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Fin</a>
-			<span th:unless="${currentPage < totalPages}">Fin</span>
-		</div>
+			</tbody>		</table>
+	
 		<br> <br> <br> <br>
 	</div>
 	<script>
 		$(document)
 				.ready(
 						function() {
+							$('#table_id').DataTable();
+							$('body').on("change", ".ch", function () {
+	
+								var vals = ""; 
+
+						    $("#table_id").dataTable().fnDestroy();
+						    
+						    $('input[name="ch"]:checked').each(function() {
+						        vals += this.value+"|";
+						    });
+
+						    vals = vals.slice(0, -1);
+						    
+						    $("#table_id").DataTable({ "search": {regex: true}}).column(0).search(vals, true, false ).draw(); 
+
+
+						})
+
 							$("#myInput")
 									.on(
 											"keyup",
